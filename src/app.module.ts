@@ -6,6 +6,7 @@ import { BlogPostModule } from './blog-post/blog-post.module';
 import {TypeOrmModule} from '@nestjs/typeorm'
 import { BlogPost } from './blog-post/blog-post.entity';
 import { User } from './user/user.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [UserModule, BlogPostModule,
@@ -18,7 +19,8 @@ import { User } from './user/user.entity';
     database: process.env.DB_DB_NAME || 'blog_app',
     entities:[User, BlogPost],
     synchronize: true
-  })],
+  }),
+  AuthModule],
   controllers: [AppController],
   providers: [AppService],
 })

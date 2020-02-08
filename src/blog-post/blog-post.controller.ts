@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { BlogPostService } from './blog-post.service';
 import { CreateBlogPostDto } from './create-blog-post.dto';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('blog-post')
 export class BlogPostController {
@@ -18,17 +19,21 @@ export class BlogPostController {
     return this.postService.find(postId);
   }
 
+
+  @UseGuards(AuthGuard('jwt'))
   @Post()
   async createBlogPost(@Body() blogPostDto:CreateBlogPostDto){
     return this.postService.create(blogPostDto);
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Post('/update')
   async updateBlogPost(@Body() blogPostDto:CreateBlogPostDto){
     return this.postService.update(blogPostDto);
   }
 
 
+  @UseGuards(AuthGuard('jwt'))
   @Post('/delete')
   async deleteBlogPost(@Body() blogPostId:number){
     return this.postService.delete(blogPostId);
