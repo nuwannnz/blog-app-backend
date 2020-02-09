@@ -16,6 +16,16 @@ export class UserService {
 
   }
 
+  async getUser():Promise<User>{
+    const users = await this.userRepo.find();
+    if(users.length === 0){
+      return null;
+    }else{
+      users[0].password = null;
+      return users[0];
+    }
+  }
+
 
   async createUser(userDto: UserDto) {
     console.log('****************** got userDto', userDto);

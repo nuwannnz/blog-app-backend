@@ -46,6 +46,10 @@ export class AppController {
     };
   }
 
+  @Get('user')
+  async getUser(){
+    return await this.userService.getUser();
+  }
 
   @UseInterceptors(ClassSerializerInterceptor)
   @Post('auth/genadmin')
